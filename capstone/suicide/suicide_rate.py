@@ -13,7 +13,7 @@ st.markdown("Capstone Project Tetris DQLab - **Firdhan Hilmy Purnomo**")
 st.markdown("---")
 
 #Dataframe definition
-df_suic = pd.read_csv('.\suicide_rate_t.csv', sep=';')
+df_suic = pd.read_csv('capstone/capstone/suicide/suicide_rate_t.csv', sep=';')
 suic_ov = pd.read_csv('./suic_overall.csv', sep=';')
 df_17 = pd.read_csv('./df_17_fix.csv')
 df_18 = pd.read_csv('./df_18_fix.csv')
