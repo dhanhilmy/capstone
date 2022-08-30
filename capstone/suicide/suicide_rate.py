@@ -92,7 +92,7 @@ with col_kn6:
     bukanlah hal yang mustahil."""
 with col_kn7:
     suicide_happy = Image.open(path_dev+"happy-suicide.png")
-    st.image(sc_gdp, caption = "Korelasi Suicide Rate dengan Happy Score")
+    st.image(suicide_happy, caption = "Korelasi Suicide Rate dengan Happy Score")
 
 st.subheader('Penutupan')
 """GDP per Capita memiliki korelasi
