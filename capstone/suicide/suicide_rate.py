@@ -13,16 +13,26 @@ st.markdown("Capstone Project Tetris DQLab - **Firdhan Hilmy Purnomo**")
 st.markdown("---")
 
 #Dataframe definition
-
-df_suic = pd.read_csv('capstone/suicide/suicide_rate_t.csv', sep=';')
-suic_ov = pd.read_csv('capstone/suicide/suic_overall.csv', sep=';')
-df_17 = pd.read_csv('capstone/suicide/df_17_fix.csv')
-df_18 = pd.read_csv('capstone/suicide/df_18_fix.csv')
-df_19 = pd.read_csv('capstone/suicide/df_19_fix.csv')
+path_dev = 'capstone/suicide/'
+df_suic = pd.read_csv(path_dev+'suicide_rate_t.csv', sep=';')
+suic_ov = pd.read_csv(path_dev+'suic_overall.csv', sep=';')
+df_17 = pd.read_csv(path_dev+'df_17_fix.csv')
+df_18 = pd.read_csv(path_dev+'df_18_fix.csv')
+df_19 = pd.read_csv(path_dev+'df_19_fix.csv')
 
 #Overview
 st.text('"High suicide rates are often cited as evidence of social failure.\nDespite this, some countries and regions that do very well in terms of happiness have among the highest suicide rates."\nAnne Case, Angus Deaton, 18 Jul 2015 (https://voxeu.org/article/suicide-and-happiness)')
-
+#df_17
+val="Indonesia"
+lst_suicide_rate = [df_17.query("Country == @val").iloc[0]['suicide_rate'],
+                    df_18.query("Country == @val").iloc[0]['suicide_rate'],
+                    df_19.query("Country == @val").iloc[0]['suicide_rate']]
+lst_happy_score = [df_17.query("Country == @val").iloc[0]['Happiness Score'],
+                    df_18.query("Country == @val").iloc[0]['Happiness Score'],
+                    df_19.query("Country == @val").iloc[0]['Happiness Score']]
+x={'suicide_rate': lst_suicide_rate, 'happiness_score': lst_happy_score}
+df_df=pd.DataFrame(data=x)
+#df_df
 st.subheader("Data Samples")
 "132 Countries"
 df_17['Country']
@@ -65,14 +75,14 @@ with col_kn1:
     dari kebahagiaan suatu negara adalah GDP per Capita. Semakin tinggi
     GDP per Capita sebuah negara, maka Kebahagiaan Negara juga cenderung semakin tinggi."""
 with col_kn2:
-    happy_gdp = Image.open("capstone/suicide/happy-gdp.png")
+    happy_gdp = Image.open(path_dev+"happy-gdp.png")
     st.image(happy_gdp, caption = "Korelasi Happy Score dengan GDP per Capita")
 with col_kn3:
     """Lalu, bagaimana hubungannya dengan tingkat bunuh diri suatu negara?
     Maka, dapat dilihat korelasinya dengan GDP per Capita karena variabel ini
     yang paling berpengaruh pada kebahagiaan suatu negara."""
 with col_kn4:
-    sc_gdp = Image.open("capstone/suicide/sc-gdp.png")
+    sc_gdp = Image.open(path_dev+"sc-gdp.png")
     st.image(sc_gdp, caption = "Korelasi Suicide Rate dengan GDP per Capita")
 
 col_kn5, col_kn6, col_kn7, col_kn8 = st.columns([1,2,2,1])
@@ -81,8 +91,8 @@ with col_kn6:
     Menunjukkan adanya korelasi yang positif. Hal ini mungkin bisa disebut irregular, tapi
     bukanlah hal yang mustahil."""
 with col_kn7:
-    suicide_happy = Image.open("capstone/suicide/happy-suicide.png")
-    st.image(suicide_happy, caption = "Korelasi Suicide Rate dengan Happy Score")
+    suicide_happy = Image.open(path_dev+"happy-suicide.png")
+    st.image(sc_gdp, caption = "Korelasi Suicide Rate dengan Happy Score")
 
 st.subheader('Penutupan')
 """GDP per Capita memiliki korelasi
@@ -96,25 +106,25 @@ col_rd1, col_rd2, col_rd3 = st.columns([1,2,2])
 with col_rd1:
     conf_suicide = st.selectbox(
         'Pilih Ranked Suicide Rate',
-        ['10 Suicide Rate Tertinggi',
-        '10 Suicide Rate Terendah',
+        ['20 Suicide Rate Tertinggi',
+        '20 Suicide Rate Terendah',
         'Tertinggi dan Terendah']
     )
     conf_gdp = st.selectbox(
         'Pilih Ranked GDP',
-        ['10 GDP Tertinggi',
-        '10 GDP Terendah',
+        ['20 Happiness Score Tertinggi',
+        '20 Happiness Score Terendah',
         'Tertinggi dan Terendah']
     )
 with col_rd2:
-    if conf_suicide == '10 Suicide Rate Tertinggi':
-        bar1 = px.bar(var_data.iloc[:, 1:].sort_values(by='suicide_rate', ascending=False).head(10),
+    if conf_suicide == '20 Suicide Rate Tertinggi':
+        bar1 = px.bar(var_data.iloc[:, 1:].sort_values(by='suicide_rate', ascending=False).head(20),
                       x = 'suicide_rate',
                       y = 'Country',
                       color='Country')
         st.plotly_chart(bar1)
-    elif conf_suicide == '10 Suicide Rate Terendah':
-        bar1 = px.bar(var_data.iloc[:, 1:].sort_values(by='suicide_rate').head(10),
+    elif conf_suicide == '20 Suicide Rate Terendah':
+        bar1 = px.bar(var_data.iloc[:, 1:].sort_values(by='suicide_rate').head(20),
                       x = 'suicide_rate',
                       y = 'Country',
                       color='Country')
@@ -128,22 +138,22 @@ with col_rd2:
         st.plotly_chart(bar1)
     
 with col_rd3:
-    if conf_gdp == '10 GDP Tertinggi':
-        bar2 = px.bar(var_data.iloc[:, 1:].sort_values(by='GDP per Capita', ascending=False).head(10),
-                      x = 'GDP per Capita',
+    if conf_gdp == '20 Happiness Score Tertinggi':
+        bar2 = px.bar(var_data.iloc[:, 1:].sort_values(by='Happiness Score', ascending=False).head(20),
+                      x = 'Happiness Score',
                       y = 'Country',
                       color='Country')
         st.plotly_chart(bar2)
-    elif conf_gdp == '10 GDP Terendah':
-        bar2 = px.bar(var_data.iloc[:, 1:].sort_values(by='GDP per Capita').head(10),
-                      x = 'GDP per Capita',
+    elif conf_gdp == '20 Happiness Score Terendah':
+        bar2 = px.bar(var_data.iloc[:, 1:].sort_values(by='Happiness Score').head(20),
+                      x = 'Happiness Score',
                       y = 'Country',
                       color='Country')
         st.plotly_chart(bar2)
     elif conf_gdp == 'Tertinggi dan Terendah':
-        bar2 = px.bar(pd.concat([var_data[var_data['GDP per Capita'] == var_data['GDP per Capita'].max()],
-                      var_data[var_data['GDP per Capita'] == var_data['GDP per Capita'].min()]]),
-                      x = 'GDP per Capita',
+        bar2 = px.bar(pd.concat([var_data[var_data['Happiness Score'] == var_data['Happiness Score'].max()],
+                      var_data[var_data['Happiness Score'] == var_data['Happiness Score'].min()]]),
+                      x = 'Happiness Score',
                       y = 'Country',
                       color='Country')
         st.plotly_chart(bar2)
