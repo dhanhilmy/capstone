@@ -14,7 +14,7 @@ st.markdown("---")
 
 #Dataframe definition
 path_dev = 'capstone\\suicide\\'
-df_suic = pd.read_csv('capstone\capstone\suicide\suicide_rate_t.csv', sep=';')
+df_suic = pd.read_csv('capstone/suicide/suicide_rate_t.csv', sep=';')
 suic_ov = pd.read_csv('capstone\suicide\suic_overall.csv', sep=';')
 df_17 = pd.read_csv('capstone\suicide\df_17_fix.csv')
 df_18 = pd.read_csv('capstone\suicide\df_18_fix.csv')
