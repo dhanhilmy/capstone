@@ -13,15 +13,19 @@ st.markdown("Capstone Project Tetris DQLab - **Firdhan Hilmy Purnomo**")
 st.markdown("---")
 
 #Dataframe definition
-df_suic = pd.read_csv('capstone/suicide/suicide_rate_t.csv', sep=';')
-suic_ov = pd.read_csv('capstone/suicide/suic_overall.csv', sep=';')
-df_17 = pd.read_csv('capstone/suicide/df_17_fix.csv')
-df_18 = pd.read_csv('capstone/suicide/df_18_fix.csv')
-df_19 = pd.read_csv('capstone/suicide/df_19_fix.csv')
+path_dev = 'capstone\\suicide\\'
+df_suic = pd.read_csv('capstone\suicide\suicide_rate_t.csv', sep=';')
+suic_ov = pd.read_csv('capstone\suicide\suic_overall.csv', sep=';')
+df_17 = pd.read_csv('capstone\suicide\df_17_fix.csv')
+df_18 = pd.read_csv('capstone\suicide\df_18_fix.csv')
+df_19 = pd.read_csv('capstone\suicide\df_19_fix.csv')
 
 #Overview
-st.text('"High suicide rates are often cited as evidence of social failure.\nDespite this, some countries and regions that do very well in terms of happiness have among the highest suicide rates."\n(https://voxeu.org/article/suicide-and-happiness)')
+st.text('"High suicide rates are often cited as evidence of social failure.\nDespite this, some countries and regions that do very well in terms of happiness have among the highest suicide rates."\nAnne Case, Angus Deaton, 18 Jul 2015 (https://voxeu.org/article/suicide-and-happiness)')
 
+st.subheader("Data Samples")
+"132 Countries"
+df_17['Country']
 st.subheader("Eksplorasi Korelasi")
 #
 col1,col2 = st.columns([1,4])
@@ -57,23 +61,31 @@ with col2:
 st.subheader('Kebahagiaan Negara dengan Tingkat Bunuh Diri')
 col_kn1, col_kn2, col_kn3, col_kn4 = st.columns([1,2,1,2])
 with col_kn1:
-    """Dari eksplorasi, dapat diketahui bahwa salah satu pengaruh terbesar 
+    """Salah satu pengaruh terbesar 
     dari kebahagiaan suatu negara adalah GDP per Capita. Semakin tinggi
     GDP per Capita sebuah negara, maka Kebahagiaan Negara juga cenderung semakin tinggi."""
 with col_kn2:
-    happy_gdp = Image.open("capstone/suicide/happy-gdp.png")
+    happy_gdp = Image.open("capstone\suicide\happy-gdp.png")
     st.image(happy_gdp, caption = "Korelasi Happy Score dengan GDP per Capita")
 with col_kn3:
     """Lalu, bagaimana hubungannya dengan tingkat bunuh diri suatu negara?
     Maka, dapat dilihat korelasinya dengan GDP per Capita karena variabel ini
-    yang paling berpengaruh pada kebahagiaan suatu negara. Tidak menggunakan 
-    Happy Score karena Happy Score didapatkan dari banyak variabel"""
+    yang paling berpengaruh pada kebahagiaan suatu negara."""
 with col_kn4:
-    sc_gdp = Image.open("capstone/suicide/sc-gdp.png")
+    sc_gdp = Image.open("capstone\suicide\sc-gdp.png")
     st.image(sc_gdp, caption = "Korelasi Suicide Rate dengan GDP per Capita")
 
+col_kn5, col_kn6, col_kn7, col_kn8 = st.columns([1,2,2,1])
+with col_kn6:
+    """Berikut korelasi langsung Suicide Rate dengan Happy Score.
+    Menunjukkan adanya korelasi yang positif. Hal ini mungkin bisa disebut irregular, tapi
+    bukanlah hal yang mustahil."""
+with col_kn7:
+    suicide_happy = Image.open("capstone\suicide\happy-suicide.png")
+    st.image(sc_gdp, caption = "Korelasi Suicide Rate dengan Happy Score")
+
 st.subheader('Penutupan')
-"""Diantara semua variabel, GDP per Capita memiliki korelasi
+"""GDP per Capita memiliki korelasi
 tertinggi dengan suicide_rate. Meskipun nilainya tidak besar, 
 tapi hal ini bisa memperkuat argumen negara bahagia yang 
 penduduknya mayoritas memiliki kekayaan, cenderung memiliki
@@ -139,3 +151,4 @@ with col_rd3:
 st.subheader("Catatan")
 "Sumber Data: "
 "World Data Bank: https://data.worldbank.org/"
+"gapminder.org"
